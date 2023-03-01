@@ -41,7 +41,11 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const upload = multer({ storage });
+
+/* To upload files in local storage */
+const storage = multer.memoryStorage()
+/* Above line is mandatory otherwise - Storage is not defined is reference error */
+const upload = multer({ storage: storage })
 
 /* ROUTES WITH FILES */
 app.post("/auth/register", upload.single("picture"), register);
